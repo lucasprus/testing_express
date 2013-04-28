@@ -8,7 +8,7 @@ $(function() {
     user = new User({
         username: "jobim"
     });
-
+ 
     /* 
     user.fetch({
         success: function() {
@@ -92,4 +92,57 @@ $(function() {
     // console.info('Username: ', user.get('username'));
     // console.info( user.url() );
     // user.save();
+		
+		
+	UserView = Backbone.View.extend({
+
+		el: $("#user"),
+		
+ 		// id: "user",
+		// tagName: "li",
+		// className: "even",
+		// attributes : {
+			// style: 'border:medium solid #00ff00;'
+		// }, 
+		
+		model: user,
+		
+		template: _.template("hello: <%= username %>"),
+
+		// events: {
+		// "click .icon":          "open",
+		// "click .button.edit":   "openEditDialog",
+		// "click .button.delete": "destroy"
+		// },
+
+		initialize: function() {
+		this.render();
+		this.listenTo(this.model, "change", this.render);
+		},
+
+		// render: function() {
+		// this.el.innerHTML = '<h3>My username is: ' + this.model.get('username') + '</h3>';
+		// }
+	  
+		render: function() {
+			this.$el.html(this.template(this.model.attributes));
+			return this;
+		  },
+		  	  
+		open: function() {
+			            console.log('Opening...');
+		  },
+		  
+		  
+		 events: {
+			"click": "open"
+			// "mouseover": "open",
+			// "mouseout": "open"
+		  }	 
+
+	});
+	
+	userView = new UserView();
+	
+	
 });
